@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { Button, Container, Form, Input } from 'reactstrap';
 
-// import {
-//   AuthUserContext,
-//   withAuthorization,
-//   withEmailVerification,
-// } from '../Session';
-
 import {
   AuthUserContext,
   withAuthorization
