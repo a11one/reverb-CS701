@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+}
+
+h5, h1, p {color: white;}
+
+#intro {
+  text: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 420px;
+}
+
+#wrapper {
+	background-color: #343a40;
+  min-height: 100%;
+}
+
+#footer {
+  background-color: blue;
+  height: 50px;
+  margin-top: -50px;
+}
