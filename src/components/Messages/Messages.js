@@ -15,9 +15,6 @@ class Messages extends Component {
       loading: false,
       messages: [],
       limit: 5,
-      streamSong: props.streamSong,
-      streamTitle: props.streamTitle,
-      streamArtist: props.streamArtist,
     };
   }
 
@@ -60,13 +57,14 @@ class Messages extends Component {
   // };
 
   onCreateMessage = (event, authUser) => {
+    console.log("this is the stream title in messages", this.props.streamTitle);
     this.props.firebase.messages().push({
       text: this.state.text,
       userId: authUser.uid,
       userName: authUser.username,
-      streamSong: this.state.streamSong,
-      streamTitle: this.state.streamTitle,
-      streamArtist: this.state.streamArtist,
+      streamSong: this.props.streamSong,
+      streamTitle: this.props.streamTitle,
+      streamArtist: this.props.streamArtist,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
@@ -97,7 +95,8 @@ class Messages extends Component {
   };
 
   render() {
-    const { text, messages, loading, streamSong, streamTile, streamArtist } = this.state;
+    console.log(this.props.streamTitle);
+    const { text, messages, loading, streamSong, streamTitle, streamArtist } = this.state;
 
     return (
       <AuthUserContext.Consumer>
@@ -115,6 +114,7 @@ class Messages extends Component {
               <MessageList
                 authUser={authUser}
                 messages={messages}
+                onComplete={this.props.complete2}
                 onEditMessage={this.onEditMessage}
                 onRemoveMessage={this.onRemoveMessage}
               />
@@ -122,14 +122,17 @@ class Messages extends Component {
 
             {!messages && <div>There are no messages ...</div>}
 
-            <Form inline>
+            <Form inline
+            onSubmit={event=>
+              this.onCreateMessage(event, authUser)
+              }
+            >
             <Button
             value={text}
-            onClick={this.onCreateMessage()}
             color="warning"
+            type="submit"
             >Stream Now
             </Button>
-            <Button color="danger"> Stop Stream</Button>
             </Form>
           </div>
         )}

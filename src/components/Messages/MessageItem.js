@@ -28,6 +28,10 @@ class MessageItem extends Component {
     this.setState({ editMode: false });
   };
 
+  onComplete = () => {
+    this.props.onComplete(this.props.message.streamSong, this.props.message.streamTitle, this.props.message.streamArtist);
+  };
+
   render() {
     const { authUser, message, onRemoveMessage } = this.props;
     const { editMode, editText } = this.state;
@@ -42,7 +46,7 @@ class MessageItem extends Component {
           />
         ) : (
           <span>
-            <strong>{message.userName}</strong> {message.text}
+            <strong>{message.userName}</strong> {message.streamTitle} by {message.streamArtist}
             {message.editedAt && <span>(Edited)</span>}
           </span>
         )}
@@ -69,6 +73,12 @@ class MessageItem extends Component {
                 Stop Stream
               </Button>
             )}
+          </span>
+        )}
+
+        {authUser.uid !== message.userId && (
+          <span>
+          <Button onClick={this.onComplete}>Listen</Button>
           </span>
         )}
       </li>

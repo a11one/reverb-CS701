@@ -4,12 +4,8 @@ import '../App/App.css';
 import { Button, Container, Row } from 'reactstrap';
 import MusicPlayer from '../MusicPlayer/index.js'
 
-//import { withAuthorization, withEmailVerification } from '../Session';
 import { withAuthorization } from '../Session';
 import Messages from '../Messages';
-//import Songs from '../Songs';
-
-
 
 class HomePage extends Component {
   constructor(props) {
@@ -23,15 +19,13 @@ class HomePage extends Component {
     };
     this.handleSongChange = this.handleSongChange.bind(this);
   }
-  handleSongChange(newSong,newTitle,newArtist) {
-    this.setState({
+  async handleSongChange(newSong,newTitle,newArtist) {
+    await this.setState({
       currentSong: newSong,
       currentTitle: newTitle,
       currentArtist: newArtist,
     });
-
-    console.log("YEEERRRRRR");
-    console.log(this.state.currentSong);
+    console.log(this.state.currentTitle);
   }
 
 
