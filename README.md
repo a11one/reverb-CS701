@@ -1,17 +1,58 @@
-# react-firebase-authentication
+# reverb-CS701 Top Level
 
-[![Build Status](https://travis-ci.org/the-road-to-react-with-firebase/react-firebase-authentication.svg?branch=master)](https://travis-ci.org/the-road-to-react-with-firebase/react-firebase-authentication) [![Slack](https://slack-the-road-to-learn-react.wieruch.com/badge.svg)](https://slack-the-road-to-learn-react.wieruch.com/) [![Greenkeeper badge](https://badges.greenkeeper.io/the-road-to-react-with-firebase/react-firebase-authentication.svg)](https://greenkeeper.io/)
+This repository combines the client and server into a single repository that can be co-developed and tested with the goal of being ultimately deployed to Heroku or basin.cs.middlebury.edu.
 
-* [Tutorial](https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/)
-* [Live Version of half of the Tutorial](https://react-firebase-authentication.wieruch.com/)
+The client was created with [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) and the server is a separate Node.js application. The client-server integration is based on this [tutorial](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/) and [repository](https://github.com/fullstackreact/food-lookup-demo). This repository will be referred to as the "top-level" to distinguish it from the client and server.
 
-## Variations
+## Need the Application Addresses:
+Livestreaming music listening experiences for free.
 
-* [Redux Version](https://github.com/the-road-to-react-with-firebase/react-redux-firebase-authentication)
-* [MobX Version](https://github.com/the-road-to-react-with-firebase/react-mobx-firebase-authentication)
-* [Gatsby Version](https://github.com/the-road-to-react-with-firebase/react-gatsby-firebase-authentication)
-* [Firestore Version](https://github.com/the-road-to-react-with-firebase/react-firestore-authentication)
-* [Semantic UI Version](https://github.com/the-road-to-react-with-firebase/react-semantic-ui-firebase-authentication)
+## Installing Dependencies
+
+The skeleton is structured as three separate packages and so the dependencies need to be installed independently in each of the top-level, the client and the server, i.e.:
+
+```
+npm install
+npm install --prefix client
+npm install --prefix server
+```
+
+## Running the Application
+
+The combined application, client and server, can be run with `npm start` in the top-level directory. `npm start` launches the CRA development server on http://localhost:3000 and the backend server on http://localhost:3001. By setting the `proxy` field in the client `package.json`, the client development server will proxy any unrecognized requests to the server.
+
+## Testing
+
+The client application can be independently tested as described in the [CRA documentation](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests), i.e.:
+
+```
+npm test --prefix client
+```
+
+The server can be similarly independently tested:
+
+```
+npm test --prefix server
+```
+
+## Linting
+
+Both the client and server can be independently linted via:
+
+```
+npm run lint --prefix client
+```
+
+and
+
+```
+npm run lint --prefix server
+```
+## Server
+
+Application uses Firebase databases server located at: https://console.firebase.google.com/project/reverb-9081f/overview
+
+No add-ons used.
 
 ## Features
 
@@ -31,51 +72,26 @@
   * Social Logins with Google, Facebook and Twitter
   * Linking of Social Logins on Account dashboard
   * Auth Persistence with Local Storage
-  * Database with Users and Messages
+  * Database with Users and Songs
 
-## License
-
-### Commercial license
-
-If you want to use this starter project to develop commercial sites, themes, projects, and applications, the Commercial license is the appropriate license. With this option, your source code is kept proprietary. Purchase an commercial license for different team sizes:
-
-* [1 Developer](https://gum.co/react-with-firebase-starter-pack-developer)
-* [Team of up to 8 Developers](https://gum.co/react-with-firebase-starter-pack-team)
-* [Unlimited Developers of an Organization](https://gum.co/react-with-firebase-starter-pack-organization)
-
-It grants you also access to the other starter projects in this GitHub organization.
-
-### Open source license
-
-If you are creating an open source application under a license compatible with the [GNU GPL license v3](https://www.gnu.org/licenses/gpl-3.0.html), you may use this starter project under the terms of the GPLv3.
 
 ## Installation
 
-* `git clone git@github.com:the-road-to-react-with-firebase/react-firebase-authentication.git`
-* `cd react-firebase-authentication`
+* `git clone https://github.com/a11one/reverb-CS701.git`
+* `cd reverb-CS701`
 * `npm install`
 * `npm start`
 * visit http://localhost:3000
 
 Get an overview of Firebase, how to create a project, what kind of features Firebase offers, and how to navigate through the Firebase project dashboard in this [visual tutorial for Firebase](https://www.robinwieruch.de/firebase-tutorial/).
 
-### Firebase Configuration
+## Installing Firebase
+npm install --save firebase
 
-* copy/paste your configuration from your Firebase project's dashboard into one of these files
-  * *src/components/Firebase/firebase.js* file
-  * *.env* file
-  * *.env.development* and *.env.production* files
+## Installing Reacststrap (Bootstrap 4)
 
-The *.env* or *.env.development* and *.env.production* files could look like the following then:
-
-```
-REACT_APP_API_KEY=AIzaSyBtxZ3phPeXcsZsRTySIXa7n33NtQ
-REACT_APP_AUTH_DOMAIN=react-firebase-s2233d64f8.firebaseapp.com
-REACT_APP_DATABASE_URL=https://react-firebase-s2233d64f8.firebaseio.com
-REACT_APP_PROJECT_ID=react-firebase-s2233d64f8
-REACT_APP_STORAGE_BUCKET=react-firebase-s2233d64f8.appspot.com
-REACT_APP_MESSAGING_SENDER_ID=701928454501
-```
+npm install --save bootstrap
+npm install --save reactstrap react react-dom
 
 ### Activate Sign-In Methods
 
@@ -87,26 +103,6 @@ REACT_APP_MESSAGING_SENDER_ID=701928454501
 * [Twitter](https://www.robinwieruch.de/firebase-twitter-login/)
 * [Troubleshoot](https://www.robinwieruch.de/react-firebase-social-login/)
 
-### Activate Verification E-Mail
-
-* add a redirect URL for redirecting a user after an email verification into one of these files
-  * *src/components/Firebase/firebase.js* file
-  * *.env* file
-  * *.env.development* and *.env.production* files
-
-The *.env* or *.env.development* and *.env.production* files could look like the following then (excl. the Firebase configuration).
-
-**Development:**
-
-```
-REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
-```
-
-**Production:**
-
-```
-REACT_APP_CONFIRMATION_EMAIL_REDIRECT=https://mydomain.com
-```
 
 ### Security Rules
 
