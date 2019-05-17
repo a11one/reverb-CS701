@@ -19,7 +19,7 @@ class MessageItem extends Component {
   };
 
   onChangeEditText = event => {
-    this.setState({ editText: event.target.value });
+    this.setState({ editText: this.props.message.text });
   };
 
   onSaveEditText = () => {

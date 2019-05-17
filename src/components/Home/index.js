@@ -23,12 +23,11 @@ class HomePage extends Component {
     };
     this.handleSongChange = this.handleSongChange.bind(this);
   }
-  handleSongChange(newSong,newTitle,newArtist,newTime) {
+  handleSongChange(newSong,newTitle,newArtist) {
     this.setState({
       currentSong: newSong,
       currentTitle: newTitle,
       currentArtist: newArtist,
-      currentTime: newTime,
     });
 
     console.log("YEEERRRRRR");
@@ -46,15 +45,15 @@ class HomePage extends Component {
           currentTitle={this.state.currentTitle}
           currentArtist={this.state.currentArtist}
           currentTime={this.state.currentTime}
-          complete = {(newSong,newTitle,newArtist,newTime) => this.handleSongChange(newSong,newTitle,newArtist,newTime)}
+          complete = {(newSong,newTitle,newArtist) => this.handleSongChange(newSong,newTitle,newArtist)}
           />
           <br />
           <Messages
-          currentSong={this.state.currentSong}
-          currentTitle={this.state.currentTitle}
-          currentArtist={this.state.currentArtist}
-          currentTime={this.state.currentTime}
-          complete = {(streamSong,streamTitle,streamArtist,streamTime) => this.handleSongChange(streamSong,streamTitle,streamArtist,streamTime)}
+          streamSong={this.state.currentSong}
+          streamTitle={this.state.currentTitle}
+          streamArtist={this.state.currentArtist}
+          streamTime={this.state.currentTime}
+          complete2 = {(streamSong,streamTitle,streamArtist,streamTime) => this.handleSongChange(streamSong,streamTitle,streamArtist)}
           />
         </Container>
       )

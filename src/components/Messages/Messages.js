@@ -4,20 +4,20 @@ import { AuthUserContext } from '../Session';
 import { withFirebase } from '../Firebase';
 import MessageList from './MessageList';
 
-var isStreaming = false;
+
 
 class Messages extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: '',
+      text: props.streamTitle,
       loading: false,
       messages: [],
       limit: 5,
-      streamSong: props.currentSong,
-      streamTitle: props.currentTitle,
-      streamArtist: props.currentArtist,
+      streamSong: props.streamSong,
+      streamTitle: props.streamTitle,
+      streamArtist: props.streamArtist,
     };
   }
 
@@ -55,9 +55,9 @@ class Messages extends Component {
     this.props.firebase.messages().off();
   }
 
-  onChangeText = event => {
-    this.setState({ text: event.target.value });
-  };
+  // onChangeText = event => {
+  //   this.setState({ text: event.target.value });
+  // };
 
   onCreateMessage = (event, authUser) => {
     this.props.firebase.messages().push({
@@ -122,19 +122,14 @@ class Messages extends Component {
 
             {!messages && <div>There are no messages ...</div>}
 
-            <Form inline
-              onSubmit={event =>
-                this.onCreateMessage(event, authUser)
-              }
-            >
-            <Input
-              type="text"
-              value={text}
-              onChange={this.onChangeText}
-            />
-            <Button type="submit">Send</Button>
-            <Button color="warning">Stream Now</Button>
-            <Button disable={isStreaming} color="danger"> Stop Stream</Button>
+            <Form inline>
+            <Button
+            value={text}
+            onClick={this.onCreateMessage()}
+            color="warning"
+            >Stream Now
+            </Button>
+            <Button color="danger"> Stop Stream</Button>
             </Form>
           </div>
         )}
@@ -145,7 +140,18 @@ class Messages extends Component {
 
 export default withFirebase(Messages);
 
+// <Form inline
+//   onSubmit={event =>
+//     this.onCreateMessage( authUser)
+//   }
+// >
 // <Input
+//   type="text"
+//   // value={text}
+//   // onChange={this.onChangeText}
+// />
+// <Button value={text} onClick={event=> this.onCreateMessage()}color="warning">Stream Now</Button>
+// // <Input
 //   type="text"
 //   value={text}
 //   onChange={this.onChangeText}
