@@ -95,6 +95,8 @@ npm install --save reactstrap react react-dom
 
 ### Activate Sign-In Methods
 
+Additional sign-in methods can be activated through the Firebase authentication plaform. Currently, only the email and password method is enabled. 
+
 ![firebase-enable-google-social-login_640](https://user-images.githubusercontent.com/2479967/49687774-e0a31e80-fb42-11e8-9d8a-4b4c794134e6.jpg)
 
 * Email/Password
