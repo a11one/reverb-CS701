@@ -4,12 +4,8 @@ import '../App/App.css';
 import { Button, Container, Row } from 'reactstrap';
 import MusicPlayer from '../MusicPlayer/index.js'
 
-//import { withAuthorization, withEmailVerification } from '../Session';
 import { withAuthorization } from '../Session';
 import Messages from '../Messages';
-//import Songs from '../Songs';
-
-
 
 class HomePage extends Component {
   constructor(props) {
@@ -23,16 +19,13 @@ class HomePage extends Component {
     };
     this.handleSongChange = this.handleSongChange.bind(this);
   }
-  handleSongChange(newSong,newTitle,newArtist,newTime) {
-    this.setState({
+  async handleSongChange(newSong,newTitle,newArtist) {
+    await this.setState({
       currentSong: newSong,
       currentTitle: newTitle,
       currentArtist: newArtist,
-      currentTime: newTime,
     });
-
-    console.log("YEEERRRRRR");
-    console.log(this.state.currentSong);
+    console.log(this.state.currentTitle);
   }
 
 
@@ -46,15 +39,15 @@ class HomePage extends Component {
           currentTitle={this.state.currentTitle}
           currentArtist={this.state.currentArtist}
           currentTime={this.state.currentTime}
-          complete = {(newSong,newTitle,newArtist,newTime) => this.handleSongChange(newSong,newTitle,newArtist,newTime)}
+          complete = {(newSong,newTitle,newArtist) => this.handleSongChange(newSong,newTitle,newArtist)}
           />
           <br />
           <Messages
-          currentSong={this.state.currentSong}
-          currentTitle={this.state.currentTitle}
-          currentArtist={this.state.currentArtist}
-          currentTime={this.state.currentTime}
-          complete = {(streamSong,streamTitle,streamArtist,streamTime) => this.handleSongChange(streamSong,streamTitle,streamArtist,streamTime)}
+          streamSong={this.state.currentSong}
+          streamTitle={this.state.currentTitle}
+          streamArtist={this.state.currentArtist}
+          streamTime={this.state.currentTime}
+          complete2 = {(streamSong,streamTitle,streamArtist,streamTime) => this.handleSongChange(streamSong,streamTitle,streamArtist)}
           />
         </Container>
       )

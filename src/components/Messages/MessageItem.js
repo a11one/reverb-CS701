@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 
+const fontStyle = {
+  color: 'white'
+}
+
+const nameStyle = {
+  color: '#ffc107'
+}
 class MessageItem extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +26,7 @@ class MessageItem extends Component {
   };
 
   onChangeEditText = event => {
-    this.setState({ editText: event.target.value });
+    this.setState({ editText: this.props.message.text });
   };
 
   onSaveEditText = () => {
@@ -28,39 +35,24 @@ class MessageItem extends Component {
     this.setState({ editMode: false });
   };
 
+  onComplete = () => {
+    this.props.onComplete(this.props.message.streamSong, this.props.message.streamTitle, this.props.message.streamArtist);
+  };
+
   render() {
     const { authUser, message, onRemoveMessage } = this.props;
     const { editMode, editText } = this.state;
 
     return (
-      <li>
-        {editMode ? (
-          <input
-            type="text"
-            value={editText}
-            onChange={this.onChangeEditText}
-          />
-        ) : (
-          <span>
-            <strong>{message.userName}</strong> {message.text}
-            {message.editedAt && <span>(Edited)</span>}
-          </span>
-        )}
+      <li style={fontStyle}>
+        <span>
+          <strong style={nameStyle}>{message.userName}</strong> {message.streamTitle} by {message.streamArtist}
+          {message.editedAt && <span>(Edited)</span>}
+        </span>
 
         {authUser.uid === message.userId && (
           <span>
-            {editMode ? (
-              <span>
-                <Button onClick={this.onSaveEditText}>Save</Button>
-                <Button onClick={this.onToggleEditMode}>Reset</Button>
-              </span>
-            ) : (
-              <div>
-                <Button color= "warning" onClick={this.onToggleEditMode}>Stream Now</Button>
-              </div>
-            )}
-
-            {!editMode && (
+            {' '}
               <Button
                 type="button"
                 onClick={() => onRemoveMessage(message.uid)}
@@ -68,7 +60,11 @@ class MessageItem extends Component {
               >
                 Stop Stream
               </Button>
-            )}
+          </span>
+        )}
+
+        {authUser.uid !== message.userId && (
+          <span>{' '}<Button onClick={this.onComplete}>Listen</Button>
           </span>
         )}
       </li>

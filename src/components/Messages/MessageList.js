@@ -6,6 +6,10 @@ const MessageList = ({
   authUser,
   username,
   messages,
+  onComplete,
+  streamSong,
+  streamTitle,
+  streamArtist,
   onEditMessage,
   onRemoveMessage,
 }) => (
@@ -14,10 +18,12 @@ const MessageList = ({
       <MessageItem
         authUser={authUser}
         username={authUser.userName}
+        streamTitle={message.streamTitle}
         key={message.uid}
         message={message}
         onEditMessage={onEditMessage}
         onRemoveMessage={onRemoveMessage}
+        onComplete={onComplete}
       />
     ))}
   </ul>

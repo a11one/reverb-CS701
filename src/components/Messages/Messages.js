@@ -4,20 +4,19 @@ import { AuthUserContext } from '../Session';
 import { withFirebase } from '../Firebase';
 import MessageList from './MessageList';
 
-var isStreaming = false;
+const fontStyle = {
+  color: 'white'
+}
 
 class Messages extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: '',
+      text: props.streamTitle,
       loading: false,
       messages: [],
       limit: 5,
-      streamSong: props.currentSong,
-      streamTitle: props.currentTitle,
-      streamArtist: props.currentArtist,
     };
   }
 
@@ -55,18 +54,16 @@ class Messages extends Component {
     this.props.firebase.messages().off();
   }
 
-  onChangeText = event => {
-    this.setState({ text: event.target.value });
-  };
 
   onCreateMessage = (event, authUser) => {
+    console.log("this is the stream title in messages", this.props.streamTitle);
     this.props.firebase.messages().push({
       text: this.state.text,
       userId: authUser.uid,
       userName: authUser.username,
-      streamSong: this.state.streamSong,
-      streamTitle: this.state.streamTitle,
-      streamArtist: this.state.streamArtist,
+      streamSong: this.props.streamSong,
+      streamTitle: this.props.streamTitle,
+      streamArtist: this.props.streamArtist,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
@@ -97,7 +94,8 @@ class Messages extends Component {
   };
 
   render() {
-    const { text, messages, loading, streamSong, streamTile, streamArtist } = this.state;
+    console.log(this.props.streamTitle);
+    const { text, messages, loading, streamSong, streamTitle, streamArtist } = this.state;
 
     return (
       <AuthUserContext.Consumer>
@@ -109,12 +107,13 @@ class Messages extends Component {
               </Button>
             )}
 
-            {loading && <div>Loading ...</div>}
+            {loading && <div style={fontStyle}>Loading ...</div>}
 
             {messages && (
               <MessageList
                 authUser={authUser}
                 messages={messages}
+                onComplete={this.props.complete2}
                 onEditMessage={this.onEditMessage}
                 onRemoveMessage={this.onRemoveMessage}
               />
@@ -123,18 +122,16 @@ class Messages extends Component {
             {!messages && <div>There are no messages ...</div>}
 
             <Form inline
-              onSubmit={event =>
-                this.onCreateMessage(event, authUser)
+            onSubmit={event=>
+              this.onCreateMessage(event, authUser)
               }
             >
-            <Input
-              type="text"
-              value={text}
-              onChange={this.onChangeText}
-            />
-            <Button type="submit">Send</Button>
-            <Button color="warning">Stream Now</Button>
-            <Button disable={isStreaming} color="danger"> Stop Stream</Button>
+            <Button
+            value={text}
+            color="warning"
+            type="submit"
+            >Stream Now
+            </Button>
             </Form>
           </div>
         )}
@@ -145,7 +142,18 @@ class Messages extends Component {
 
 export default withFirebase(Messages);
 
+// <Form inline
+//   onSubmit={event =>
+//     this.onCreateMessage( authUser)
+//   }
+// >
 // <Input
+//   type="text"
+//   // value={text}
+//   // onChange={this.onChangeText}
+// />
+// <Button value={text} onClick={event=> this.onCreateMessage()}color="warning">Stream Now</Button>
+// // <Input
 //   type="text"
 //   value={text}
 //   onChange={this.onChangeText}
