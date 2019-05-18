@@ -4,7 +4,9 @@ import { AuthUserContext } from '../Session';
 import { withFirebase } from '../Firebase';
 import MessageList from './MessageList';
 
-
+const fontStyle = {
+  color: 'white'
+}
 
 class Messages extends Component {
   constructor(props) {
@@ -52,9 +54,6 @@ class Messages extends Component {
     this.props.firebase.messages().off();
   }
 
-  // onChangeText = event => {
-  //   this.setState({ text: event.target.value });
-  // };
 
   onCreateMessage = (event, authUser) => {
     console.log("this is the stream title in messages", this.props.streamTitle);
@@ -108,7 +107,7 @@ class Messages extends Component {
               </Button>
             )}
 
-            {loading && <div>Loading ...</div>}
+            {loading && <div style={fontStyle}>Loading ...</div>}
 
             {messages && (
               <MessageList
